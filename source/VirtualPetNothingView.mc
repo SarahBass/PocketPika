@@ -140,12 +140,14 @@ function onUpdate(dc as Dc) as Void {
     }
     sunsetMin = sunsetMin.format("%02d");
 
+    var userHEART = "0";
+    var heartRate = getHeartRate();
 
-
-    var userHEART = "000";
-    if (getHeartRate() == null){userHEART = "000";}
-    else if(getHeartRate() == 255){userHEART = "000";}
-    else{userHEART = getHeartRate().toString();}
+    if (heartRate == null) {
+        userHEART = "0"; // Set to "0" if heart rate is unavailable
+    } else {
+        userHEART = heartRate.toString();
+    }
 
     var moonnumber = getMoonPhase(today.year, ((today.month)-1), today.day);  
     var moon1 = moonArrFun(moonnumber);
@@ -158,8 +160,13 @@ function onUpdate(dc as Dc) as Void {
 
     View.onUpdate(dc);
 
-
-
+ /*     _                           _            _    
+     __| |_ __ __ ___      __   ___| | ___   ___| | __
+    / _` | '__/ _` \ \ /\ / /  / __| |/ _ \ / __| |/ /
+   | (_| | | | (_| |\ V  V /  | (__| | (_) | (__|   < 
+    \__,_|_|  \__,_| \_/\_/    \___|_|\___/ \___|_|\_\
+                                                   */
+    /*-------Draw Circles*/
     dc.setColor(0x415F5F, Graphics.COLOR_TRANSPARENT);        
     dc.fillCircle(centerX, centerX, centerX) ;     
     dc.setColor(0x3F5E4F, Graphics.COLOR_TRANSPARENT);       
@@ -170,7 +177,8 @@ function onUpdate(dc as Dc) as Void {
     dc.drawCircle(centerX, centerX, centerX*1/2) ;   
     dc.setColor(0x7B8863, Graphics.COLOR_TRANSPARENT);       
     dc.fillCircle(centerX, centerX, centerX*1/2) ;        
-
+    
+    /*--------Draw Text---------------------------*/
     dc.setColor(0x17231B, Graphics.COLOR_TRANSPARENT);  
     dc.drawText( centerX, 48, wordFont,  ("^"+userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 114,69 , smallpoke,  ("u"), Graphics.TEXT_JUSTIFY_CENTER );
@@ -187,11 +195,12 @@ function onUpdate(dc as Dc) as Void {
     dc.drawText(centerX,175,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
 
 
-    //Draw Objects
+    /*----Draw Graphics----------*/
     moon1.draw(dc);
     var dog = dogPhase(today.sec,userSTEPS); //userSTEPS
     dog.draw(dc);
 
+    /*------------Draw Step Meter------------*/
     //Every 360 Steps Pikachu Levels up
     dc.setPenWidth(16);
     dc.setColor(0x6C7778, Graphics.COLOR_TRANSPARENT);
@@ -199,7 +208,8 @@ function onUpdate(dc as Dc) as Void {
     dc.setColor(0x2F4237, Graphics.COLOR_TRANSPARENT);
     dc.drawArc(centerX, centerX, centerX*310/360, Graphics.ARC_COUNTER_CLOCKWISE, 1, (userSTEPS+2) ); 
 
-    //Battery Meter
+    
+    /*---------------Draw Battery---------------*/
     dc.setColor(0x17231B, Graphics.COLOR_TRANSPARENT);  
     if(batteryMeter<33 &&batteryMeter>9){
         dc.fillRectangle(centerX*350/360, (centerX*245/360)+40, 9, 50/14);}
@@ -211,12 +221,25 @@ function onUpdate(dc as Dc) as Void {
     dc.fillRectangle(centerX*350/360, (centerX*235/360)+40, 9, 50/14);
     dc.fillRectangle(centerX*350/360, (centerX*245/360)+40, 9, 50/14);}
     else{}
+    
 }
-
+/*            _     _ 
+  __   _____ (_) __| |
+  \ \ / / _ \| |/ _` |
+   \ V / (_) | | (_| |
+    \_/ \___/|_|\__,_|
+                    */
 
 function onHide() as Void { }
 function onExitSleep() as Void {}
 function onEnterSleep() as Void {}
+
+/*                    _   _               
+__      _____  __ _| |_| |__   ___ _ __ 
+\ \ /\ / / _ \/ _` | __| '_ \ / _ \ '__|
+ \ V  V /  __/ (_| | |_| | | |  __/ |   
+  \_/\_/ \___|\__,_|\__|_| |_|\___|_|   
+                                        */
 
 function weather(cond) {
   if (cond == 0 || cond == 40){return "b";}//sun
@@ -228,8 +251,14 @@ function weather(cond) {
   else {return "c";}//suncloudrain 
 }
 
+/*     _                                        
+    __| |_ __ __ ___      __  _ __  _ __   __ _ 
+   / _` | '__/ _` \ \ /\ / / | '_ \| '_ \ / _` |
+  | (_| | | | (_| |\ V  V /  | |_) | | | | (_| |
+   \__,_|_|  \__,_| \_/\_/   | .__/|_| |_|\__, |
+                             |_|          |___/ */
 
-
+//DrawOpacityGraphic - dog -
 function dogPhase(seconds, steps){
   var screenHeightY = System.getDeviceSettings().screenHeight;
   var screenWidthX = System.getDeviceSettings().screenWidth;
@@ -522,18 +551,35 @@ function dogPhase(seconds, steps){
         
   
 }
+/* _                     _       __       _       
+  | |__   ___  __ _ _ __| |_    /__\ __ _| |_ ___ 
+  | '_ \ / _ \/ _` | '__| __|  / \/// _` | __/ _ \
+  | | | |  __/ (_| | |  | |_  / _  \ (_| | ||  __/
+  |_| |_|\___|\__,_|_|   \__| \/ \_/\__,_|\__\___|
+                                                */
 
-private function getHeartRate() {// initialize it to null
-  var heartRate = null;// Get the activity info if possible
-  var info = Activity.getActivityInfo();
-  if (info != null) {
-    heartRate = info.currentHeartRate;
-  } else { // Fallback to `getHeartRateHistory`
-    var latestHeartRateSample = ActivityMonitor.getHeartRateHistory(1, true).next();
-    if (latestHeartRateSample != null) {
-      heartRate = latestHeartRateSample.heartRate;
-    } } // Could still be null if the device doesn't support it
-  return heartRate;}
+private function getHeartRate() {
+    // Initialize to null
+    var heartRate = null;
+
+    // Get the activity info if possible
+    var info = Activity.getActivityInfo();
+    if (info != null && info.currentHeartRate != null) {
+        heartRate = info.currentHeartRate;
+    } else { 
+        // Fallback to `getHeartRateHistory`
+        var history = ActivityMonitor.getHeartRateHistory(1, true);
+        if (history != null) {
+            var latestHeartRateSample = history.next();
+            if (latestHeartRateSample != null && latestHeartRateSample.heartRate != null) {
+                heartRate = latestHeartRateSample.heartRate;
+            }
+        }
+    }
+
+    // Could still be null if the device doesn't support it
+    return heartRate;
+}
 /*
   __  __                 ___ _                 
  |  \/  |___  ___ _ _   | _ \ |_  __ _ ___ ___ 

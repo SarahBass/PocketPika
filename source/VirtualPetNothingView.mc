@@ -56,11 +56,21 @@ function onUpdate(dc as Dc) as Void {
     //"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"];
     
     /*----------Battery------------------------------*/
-    var userBattery = "000";
+    var userBattery = "0";
     var batteryMeter = 1;
-    if (myStats.battery != null){userBattery = Lang.format("$1$",[((myStats.battery.toNumber())).format("%02d")]);}else{userBattery="000";} 
-    if (myStats.battery != null){batteryMeter = myStats.battery.toNumber();}else{batteryMeter="1";} 
-    
+
+    if (myStats.battery != null) {
+        userBattery = myStats.battery.toNumber().toString(); // Convert to string without zero padding
+    } else {
+        userBattery = "0";
+    }
+
+    if (myStats.battery != null) {
+        batteryMeter = myStats.battery.toNumber();
+    } else {
+        batteryMeter = 1;
+    }
+        
     /*----------Steps------------------------------*/
     var userSTEPS = 0;
     if (info.steps != null){userSTEPS = info.steps.toNumber();}else{userSTEPS=0;} 

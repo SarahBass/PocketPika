@@ -151,12 +151,16 @@ View.onUpdate(dc);
 
 
 
-dc.setColor(0x7B8863, Graphics.COLOR_TRANSPARENT);        
+dc.setColor(0x415F5F, Graphics.COLOR_TRANSPARENT);        
 dc.fillCircle(centerX, centerX, centerX) ;     
+dc.setColor(0x3F5E4F, Graphics.COLOR_TRANSPARENT);       
+dc.fillCircle(centerX, centerX, centerX*2/3) ;   
 dc.setColor(0x4D6A5D, Graphics.COLOR_TRANSPARENT);        
-dc.drawCircle(centerX, centerX, centerX) ;  
+dc.drawCircle(centerX, centerX, centerX) ; 
 dc.setColor(0x4D6A5D, Graphics.COLOR_TRANSPARENT);       
-dc.drawCircle(centerX, centerX, centerX*1/2) ;          
+dc.drawCircle(centerX, centerX, centerX*1/2) ;   
+dc.setColor(0x7B8863, Graphics.COLOR_TRANSPARENT);       
+dc.fillCircle(centerX, centerX, centerX*1/2) ;        
 
 //Draw Objects
 moon1.draw(dc);

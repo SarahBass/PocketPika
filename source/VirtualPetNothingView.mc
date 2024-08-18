@@ -193,21 +193,27 @@ function onUpdate(dc as Dc) as Void {
     dc.drawText( centerX, 48, wordFont,  ("^"+userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 114,69 , smallpoke,  ("u"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 63,100 , wordFont,  ("~"+userCAL), Graphics.TEXT_JUSTIFY_LEFT );
-    dc.drawText( 58, 162, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 46,205, smallFont,"l", Graphics.TEXT_JUSTIFY_LEFT );
-    dc.drawText( 55,245, wordFont,(sunriseHour + ":" + sunriseMin+"AM"), Graphics.TEXT_JUSTIFY_LEFT );
+    //dc.drawText( 58, 162, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
+    //dc.drawText( 46,205, smallFont,"l", Graphics.TEXT_JUSTIFY_LEFT );
+   // dc.drawText( 55,245, wordFont,(sunriseHour + ":" + sunriseMin+"AM"), Graphics.TEXT_JUSTIFY_LEFT );
     dc.drawText( 240,69 , smallpoke,  ("h"), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 303,100 , wordFont,  ("&"+userHEART), Graphics.TEXT_JUSTIFY_RIGHT );
-    dc.drawText( 303, 159, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 280,205, smallFont,"n", Graphics.TEXT_JUSTIFY_LEFT );
-    dc.drawText( 307,245, wordFont,(sunsetHour + ":" + sunriseMin+ "PM"), Graphics.TEXT_JUSTIFY_RIGHT );
+    //dc.drawText( 303,100 , wordFont,  ("&"+userHEART), Graphics.TEXT_JUSTIFY_RIGHT );
+    //dc.drawText( 303, 159, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
+    //Sunrise
+    dc.drawText( 58,130, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 58,165 , wordFont,  ("SUNRISE"), Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText( 58,180, wordFont,(sunriseHour + ":" + sunriseMin+ "AM"), Graphics.TEXT_JUSTIFY_CENTER );
+    //Sunset
+    dc.drawText( 303,130, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 303,165 , wordFont,  ("SUNSET"), Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText( 303,180, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX+3,200,smallFont, timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
     dc.drawText(centerX,175,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
 
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
-    var dog = dogPhase(today.sec,userSTEPS); //userSTEPS
+    var dog = dogPhase(today.sec,userSTEPS); //userSTEPS or (today.sec*360)
     dog.draw(dc);
 
     /*------------Draw Step Meter------------*/
@@ -556,7 +562,7 @@ function dogPhase(seconds, steps){
             :locY=>venus2Y
                 }))
         ];
-        if (steps > 19000){return dogARRAY[54 + seconds%2];}else{return dogARRAY[((steps/360)*2) + seconds%2 ];}
+        if (steps > 19000){return dogARRAY[54 + seconds%2];}else{return dogARRAY[((steps/360)) + seconds%2 ];}
         
         
   

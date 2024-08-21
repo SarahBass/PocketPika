@@ -560,7 +560,27 @@ function dogPhase(seconds, steps){
             :rezId=>Rez.Drawables.dog55,
             :locX=> venus2X,
             :locY=>venus2Y
-                })),
+        })),
+            (new WatchUi.Bitmap({
+            :rezId=>Rez.Drawables.dog56,
+            :locX=> venus2X,
+            :locY=>venus2Y
+        })),
+            (new WatchUi.Bitmap({
+            :rezId=>Rez.Drawables.dog57,
+            :locX=> venus2X,
+            :locY=>venus2Y
+        })),
+            (new WatchUi.Bitmap({
+            :rezId=>Rez.Drawables.dog58,
+            :locX=> venus2X,
+            :locY=>venus2Y
+        })),
+            (new WatchUi.Bitmap({
+            :rezId=>Rez.Drawables.dog59,
+            :locX=> venus2X,
+            :locY=>venus2Y
+        })),
         ];
        if (steps > 10000){return dogARRAY[54 + seconds%2];}else{return dogARRAY[((steps/360)*2) + seconds%2 ];}
         

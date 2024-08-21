@@ -1,0 +1,76 @@
+<drawables>
+    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+<bitmap id="firstquar" filename="quar1.png" x = "center" dithering="none"/>
+<bitmap id="thirdquar" filename="quar3.png" x = "center" dithering="none"/>
+<bitmap id="newmoon" filename="new.png" x = "center" dithering="none"/>
+<bitmap id="full" filename="full.png" x = "center" dithering="none"/>
+<bitmap id="waxcres" filename="waxcres.png" x = "center" dithering="none"/>
+<bitmap id="wancres" filename="wancres.png" x = "center" dithering="none"/>
+<bitmap id="waxgib" filename="waxgib.png"  x = "center" dithering="none"/>
+<bitmap id="wangib" filename="wangib.png" x = "center" dithering="none"/>
+     <bitmap id="dog0" filename="pet0.png" dithering="none" />
+     <bitmap id="dog1" filename="pet1.png" dithering="none" />
+          <bitmap id="dog2" filename="pet2.png" dithering="none" />
+     <bitmap id="dog3" filename="pet3.png" dithering="none" />
+          <bitmap id="dog4" filename="pet4.png" dithering="none" />
+     <bitmap id="dog5" filename="pet5.png" dithering="none" />
+
+      <bitmap id="dog6" filename="pet6.png" dithering="none" />
+       <bitmap id="dog7" filename="pet7.png" dithering="none" />
+        <bitmap id="dog8" filename="pet8.png" dithering="none" />
+         <bitmap id="dog9" filename="pet9.png" dithering="none" />
+          <bitmap id="dog10" filename="pet10.png" dithering="none" />
+           <bitmap id="dog11" filename="pet11.png" dithering="none" />
+            <bitmap id="dog12" filename="pet12.png" dithering="none" />
+             <bitmap id="dog13" filename="pet13.png" dithering="none" />
+              <bitmap id="dog14" filename="pet14.png" dithering="none" />
+               <bitmap id="dog15" filename="pet15.png" dithering="none" />
+                <bitmap id="dog16" filename="pet16.png" dithering="none" />
+                 <bitmap id="dog17" filename="pet17.png" dithering="none" />
+                  <bitmap id="dog18" filename="pet18.png" dithering="none" />
+                   <bitmap id="dog19" filename="pet19.png" dithering="none" />
+                   <bitmap id="dog20" filename="pet20.png" dithering="none" />
+
+                   <bitmap id="dog21" filename="pet21.png" dithering="none" />
+            <bitmap id="dog22" filename="pet22.png" dithering="none" />
+             <bitmap id="dog23" filename="pet23.png" dithering="none" />
+              <bitmap id="dog24" filename="pet24.png" dithering="none" />
+               <bitmap id="dog25" filename="pet25.png" dithering="none" />
+                <bitmap id="dog26" filename="pet26.png" dithering="none" />
+                 <bitmap id="dog27" filename="pet27.png" dithering="none" />
+                  <bitmap id="dog28" filename="pet28.png" dithering="none" />
+                   <bitmap id="dog29" filename="pet29.png" dithering="none" />
+<bitmap id="dog30" filename="pet30.png" dithering="none" />
+           <bitmap id="dog31" filename="pet31.png" dithering="none" />
+           <bitmap id="dog32" filename="pet32.png" dithering="none" />
+           <bitmap id="dog33" filename="pet33.png" dithering="none" />
+           <bitmap id="dog34" filename="pet34.png" dithering="none" />
+<bitmap id="dog33" filename="pet33.png" dithering="none" />
+<bitmap id="dog34" filename="pet34.png" dithering="none" />
+<bitmap id="dog35" filename="pet35.png" dithering="none" />
+<bitmap id="dog36" filename="pet36.png" dithering="none" />
+<bitmap id="dog37" filename="pet37.png" dithering="none" />
+<bitmap id="dog38" filename="pet38.png" dithering="none" />
+<bitmap id="dog39" filename="pet39.png" dithering="none" />
+<bitmap id="dog40" filename="pet40.png" dithering="none" />
+<bitmap id="dog41" filename="pet41.png" dithering="none" />
+<bitmap id="dog42" filename="pet42.png" dithering="none" />
+<bitmap id="dog43" filename="pet43.png" dithering="none" />
+<bitmap id="dog44" filename="pet44.png" dithering="none" />
+<bitmap id="dog45" filename="pet45.png" dithering="none" />
+<bitmap id="dog46" filename="pet46.png" dithering="none" />
+<bitmap id="dog47" filename="pet47.png" dithering="none" />
+<bitmap id="dog48" filename="pet48.png" dithering="none" />
+<bitmap id="dog49" filename="pet49.png" dithering="none" />
+<bitmap id="dog50" filename="pet50.png" dithering="none" />
+<bitmap id="dog51" filename="pet51.png" dithering="none" />
+<bitmap id="dog52" filename="pet52.png" dithering="none" />
+<bitmap id="dog53" filename="pet53.png" dithering="none" />
+<bitmap id="dog54" filename="pet54.png" dithering="none" />
+<bitmap id="dog55" filename="pet55.png" dithering="none" />
+<bitmap id="dog56" filename="pet56.png" dithering="none" />
+<bitmap id="dog57" filename="pet57.png" dithering="none" />
+<bitmap id="dog58" filename="pet58.png" dithering="none" />
+<bitmap id="dog59" filename="pet59.png" dithering="none" />
+</drawables>
+  

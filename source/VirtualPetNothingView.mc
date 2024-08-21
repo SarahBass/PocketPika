@@ -212,7 +212,7 @@ function onUpdate(dc as Dc) as Void {
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
-    var dog = dogPhase(today.sec,20000); //userSTEPS or (today.sec*180)
+    var dog = dogPhase(today.sec,userSTEPS); //userSTEPS or (today.sec*180)
     dog.draw(dc);
     //Draw Time infront of Pika
     //dc.drawText(centerX+3,200,smallFont, timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 

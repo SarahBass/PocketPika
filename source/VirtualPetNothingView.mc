@@ -7,7 +7,7 @@ import Toybox.Weather;
 import Toybox.Activity;
 import Toybox.ActivityMonitor;
 import Toybox.Time.Gregorian;
-
+import Toybox.UserProfile;
 class VirtualPetNothingView extends WatchUi.WatchFace {
   
 function initialize() {  WatchFace.initialize(); }
@@ -51,10 +51,20 @@ function onUpdate(dc as Dc) as Void {
     var weekdayArray = ["Day", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"] as Array<String>;
     var monthArray = ["Month", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"] as Array<String>;
     
-    /*----------Fun Pokemon Decor------------------------------*/
-    //var arrayPokemon = ["a","b","c", "d", "e", "f", "j", "h", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-    //"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"];
-    
+    //----------------Horoscope-------------------//
+    var profile = UserProfile.getProfile();
+    var userBIRTH = 1989; // Default birth year
+
+    if (profile != null && profile.birthYear != null) {
+        userBIRTH = profile.birthYear.toNumber();
+    }
+
+    // Array representing the Chinese horoscope symbols
+    var chinesehoroscope = ["r", "q", "j", "s", "h", "K", "k", "m", "d", "o", "p", "L"] as Array<String>;
+    // Current year
+    var currentYear = today.year.toNumber();
+
+
     /*----------Battery------------------------------*/
     var userBattery = "0";
     var batteryMeter = 1;
@@ -165,8 +175,6 @@ function onUpdate(dc as Dc) as Void {
     var centerY = (dc.getHeight()) / 2;
     var smallFont =  WatchUi.loadResource( Rez.Fonts.WeatherFont );
     var wordFont =  WatchUi.loadResource( Rez.Fonts.smallFont );
-    var xsmallFont =  WatchUi.loadResource( Rez.Fonts.xsmallFont );
-    var smallpoke =  WatchUi.loadResource( Rez.Fonts.smallpoke );
 
     View.onUpdate(dc);
 
@@ -190,15 +198,16 @@ function onUpdate(dc as Dc) as Void {
     
     /*--------Draw Text---------------------------*/
     dc.setColor(0x17231B, Graphics.COLOR_TRANSPARENT);  
-    dc.drawText( centerX, 48, wordFont,  ("^"+userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 114,69 , smallpoke,  ("u"), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 63,100 , wordFont,  ("~"+userCAL), Graphics.TEXT_JUSTIFY_LEFT );
-    //dc.drawText( 58, 162, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
-    //dc.drawText( 46,205, smallFont,"l", Graphics.TEXT_JUSTIFY_LEFT );
-   // dc.drawText( 55,245, wordFont,(sunriseHour + ":" + sunriseMin+"AM"), Graphics.TEXT_JUSTIFY_LEFT );
-    dc.drawText( 240,69 , smallpoke,  ("h"), Graphics.TEXT_JUSTIFY_CENTER );
-    //dc.drawText( 303,100 , wordFont,  ("&"+userHEART), Graphics.TEXT_JUSTIFY_RIGHT );
-    //dc.drawText( 303, 159, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX, 40, wordFont,  ("+"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX, 60, wordFont,  (userHEART), Graphics.TEXT_JUSTIFY_CENTER );
+
+    dc.drawText( 100,70 , wordFont,  ("^"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 100,89 , wordFont,  (userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 260,70 , wordFont,  ("~"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 260,89 , wordFont,  (userCAL), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX,125, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX,90, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
+    
     //Sunrise
     dc.drawText( 58,130, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 58,165 , wordFont,  ("SUNRISE"), Graphics.TEXT_JUSTIFY_CENTER);
@@ -209,6 +218,12 @@ function onUpdate(dc as Dc) as Void {
     dc.drawText( 303,180, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX,175,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX+3,200,smallFont, timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    // Draw Month Horoscope
+    dc.drawText(75,226,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    // Drawing the Chinese horoscope based on the current year
+    dc.drawText(107, 256, smallFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    // Drawing the Chinese horoscope based on the user's birth year
+    dc.drawText(278, 256, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
@@ -619,6 +634,95 @@ private function getHeartRate() {
     // Could still be null if the device doesn't support it
     return heartRate;
 }
+
+
+/*
+  ____        _ _           __  __         _   _    
+ |_  /___  __| (_)__ _ __  |  \/  |___ _ _| |_| |_  
+  / // _ \/ _` | / _` / _| | |\/| / _ \ ' \  _| ' \ 
+ /___\___/\__,_|_\__,_\__| |_|  |_\___/_||_\__|_||_|
+                                                    
+*/
+
+function getHoroscope(month, day) {
+
+     if (month == 0) {
+        if (day > 0 && day < 19) {
+          return "B";//"Cap";
+        } else {
+          return "v";//"Aqu";
+        }
+      } else if (month == 1) {
+        if (day > 1 && day < 18) {
+          return "B";//"Cap";
+        } else {
+          return "@";//"Pis";
+        }
+      } else if (month == 2) {
+        if (day > 1 && day < 20) {
+          return "@";//"Pis";
+        } else {
+          return "w";//"Ari";
+        }
+      } else if (month == 3) {
+        if (day > 1 && day < 19) {
+          return "w";//"Ari";
+        } else {
+          return "F";//"Tau";
+        }
+      } else if (month == 4) {
+        return "F";//"Tau";
+      } else if (month == 5) {
+        if (day > 1 && day < 20) {
+          return "x";//"Gem";
+        } else {
+          return "C";//"Can";
+        }
+      } else if (month == 6) {
+        if (day > 1 && day < 22) {
+          return "C";//"Can";
+        } else {
+          return "y";//"Leo";
+        }
+      } else if (month == 7) {
+        if (day > 1 && day < 22) {
+          return "y";//"Leo";
+        } else {
+          return "H";//"Vir";
+        }
+      } else if (month == 8) {
+        if (day > 1 && day < 22) {
+          return "H";//"Vir";
+        } else {
+          return "z";//"Lib";
+        }
+      } else if (month == 9) {
+        if (day > 1 && day < 22) {
+          return "z";//"Lib";
+        } else {
+          return "G";//"Sco";
+        }
+      } else if (month == 10) {
+        if (day > 1 && day < 21) {
+          return "G";//"Sco";
+        } else {
+          return "E";//"Sag";
+        }
+      } else if (month == 11) {
+        if (day > 1 && day < 21) {
+          return "E";//"Sag";
+        } else {
+          return "B";//"Cap";
+        }
+      } else {
+        return "w";//"Ari";
+      }
+    }
+
+           
+
+
+
 /*
   __  __                 ___ _                 
  |  \/  |___  ___ _ _   | _ \ |_  __ _ ___ ___ 
@@ -722,3 +826,51 @@ var venus2XL = ((System.getDeviceSettings().screenWidth)*119/360);
 
 
 }
+
+/*
+       Horoscope, Zodiac, and Weather Font:
+        A FAR
+        B capricorn
+        C CELCIUS
+        D Celcius
+        E SAGIT
+        F TAUR
+        G SCORP
+        H VIRGO
+        I LIBRA
+        J LEO
+        K BULL
+        L SHEEP
+        M PM
+        N AM
+        0 :
+        a rain
+        b sun
+        c rainsuncloud
+        d dragon
+        e cloud
+        f whirl
+        g wind
+        h rat
+        i snow
+        j dog
+        k tiger
+        l sun up
+        m rabbit
+        n sun down
+        o snake
+        p horse
+        q rooster
+        r monkey
+        s pig
+        t male
+        u female
+        v aquarius
+        w aries
+        x gemini
+        y leo
+        z libra
+        */
+
+// questionmark=calorie *=heart [=battery ]=steps @=battery #=phone
+// = is small battery ^ is small steps ~ is small calories + is small heart

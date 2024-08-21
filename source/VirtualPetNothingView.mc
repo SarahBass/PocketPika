@@ -205,7 +205,7 @@ function onUpdate(dc as Dc) as Void {
     //var centerY = (dc.getHeight()) / 2;
     var smallFont =  WatchUi.loadResource( Rez.Fonts.WeatherFont );
     var wordFont =  WatchUi.loadResource( Rez.Fonts.smallFont );
-
+    var bigFont= WatchUi.loadResource( Rez.Fonts.bigFont );
     View.onUpdate(dc);
 
  /*     _                           _            _    
@@ -247,7 +247,12 @@ function onUpdate(dc as Dc) as Void {
     dc.drawText( 303 *screenWidthX,165*screenHeightY , wordFont,  ("SUNSET"), Graphics.TEXT_JUSTIFY_CENTER);
     dc.drawText( 303 *screenWidthX,180*screenHeightY, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX,175*screenHeightY,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText(centerX+3,200*screenHeightY,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    
+    if (System.getDeviceSettings().screenHeight ==416 || System.getDeviceSettings().screenHeight ==454){
+        dc.drawText(centerX+3,180*screenHeightY,bigFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    }else{
+        dc.drawText(centerX+3,200*screenHeightY,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    }
     // Draw Month Horoscope
     dc.drawText(72 *screenWidthX,220*screenHeightY,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Drawing the Chinese horoscope based on the current year

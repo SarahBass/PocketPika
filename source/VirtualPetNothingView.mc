@@ -26,8 +26,12 @@ function onUpdate(dc as Dc) as Void {
 
     /*----------System Variables------------------------------*/
     var mySettings = System.getDeviceSettings();
-    var screenHeightY = System.getDeviceSettings().screenHeight;
-    var screenWidthX = System.getDeviceSettings().screenWidth;
+    var screenHeightY = (System.getDeviceSettings().screenHeight)/360;
+    var screenWidthX = (System.getDeviceSettings().screenWidth)/360;
+    if (System.getDeviceSettings().screenHeight ==390){
+        screenHeightY=screenHeightY*1.1;
+        screenWidthX=screenWidthX *1.07;
+    }
     var myStats = System.getSystemStats();
     var info = ActivityMonitor.getInfo();
     
@@ -185,7 +189,7 @@ function onUpdate(dc as Dc) as Void {
     var moonnumber = getMoonPhase(today.year, ((today.month)-1), today.day);  
     var moon1 = moonArrFun(moonnumber);
     var centerX = (dc.getWidth()) / 2;
-    var centerY = (dc.getHeight()) / 2;
+    //var centerY = (dc.getHeight()) / 2;
     var smallFont =  WatchUi.loadResource( Rez.Fonts.WeatherFont );
     var wordFont =  WatchUi.loadResource( Rez.Fonts.smallFont );
 
@@ -208,36 +212,36 @@ function onUpdate(dc as Dc) as Void {
     dc.drawCircle(centerX, centerX, centerX*1/2) ;   
     dc.setColor(0x7B8863, Graphics.COLOR_TRANSPARENT);       
     dc.fillCircle(centerX, centerX, centerX*1/2) ;        
-    
+   
     /*--------Draw Text---------------------------*/
     dc.setColor(0x17231B, Graphics.COLOR_TRANSPARENT);  
-    dc.drawText( centerX, 40, wordFont,  ("+"), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( centerX, 60, wordFont,  (userHEART), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX, 40*screenHeightY, wordFont,  ("+"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX, 60*screenHeightY, wordFont,  (userHEART), Graphics.TEXT_JUSTIFY_CENTER );
 
-    dc.drawText( 100,70 , wordFont,  ("^"), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 100,89 , wordFont,  (userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 260,70 , wordFont,  ("~"), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 260,89 , wordFont,  (userCAL), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( centerX,125, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( centerX,90, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 100 *screenWidthX,70*screenHeightY , wordFont,  ("^"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 100 *screenWidthX,89*screenHeightY , wordFont,  (userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 260 *screenWidthX,70*screenHeightY , wordFont,  ("~"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 260 *screenWidthX,89*screenHeightY , wordFont,  (userCAL), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX,125*screenHeightY, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX,90*screenHeightY, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
     
     //Sunrise
-    dc.drawText( 58,130, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 58,165 , wordFont,  ("SUNRISE"), Graphics.TEXT_JUSTIFY_CENTER);
-    dc.drawText( 58,180, wordFont,(sunriseHour + ":" + sunriseMin+ "AM"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 58 *screenWidthX,130*screenHeightY, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 58 *screenWidthX,165*screenHeightY , wordFont,  ("SUNRISE"), Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText( 58 *screenWidthX,180*screenHeightY, wordFont,(sunriseHour + ":" + sunriseMin+ "AM"), Graphics.TEXT_JUSTIFY_CENTER );
     //Sunset
-    dc.drawText( 303,130, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( 303,165 , wordFont,  ("SUNSET"), Graphics.TEXT_JUSTIFY_CENTER);
-    dc.drawText( 303,180, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText(centerX,175,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText(centerX+3,200,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText( 303 *screenWidthX,130*screenHeightY, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 303 *screenWidthX,165*screenHeightY , wordFont,  ("SUNSET"), Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText( 303 *screenWidthX,180*screenHeightY, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText(centerX,175*screenHeightY,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText(centerX+3,200*screenHeightY,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Draw Month Horoscope
-    dc.drawText(72,220,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(72 *screenWidthX,220*screenHeightY,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Drawing the Chinese horoscope based on the current year
-    dc.drawText(107, 256, smallFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText(107 *screenWidthX, 256*screenHeightY, smallFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
     // Drawing the Chinese horoscope based on the user's birth year
-    dc.drawText(268, 256, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
-    dc.drawText(287,220,smallFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(268 *screenWidthX, 256*screenHeightY, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText(287 *screenWidthX,220*screenHeightY,smallFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
@@ -309,6 +313,9 @@ function dogPhase(seconds, steps){
   var screenWidthX = System.getDeviceSettings().screenWidth;
   var venus2X = 110*screenWidthX/360;
   var venus2Y = (190*screenHeightY/360);
+  if (screenHeightY == 390){
+   venus2Y = (200*screenHeightY/360);
+  }
   var dogARRAY = [
     (new WatchUi.Bitmap({
             :rezId=>Rez.Drawables.dog0,
@@ -792,9 +799,14 @@ function getMoonPhase(year, month, day) {
      7 => Waning Crescent Moon
      */
 function moonArrFun(moonnumber){
-var venus2Y = ((System.getDeviceSettings().screenHeight)*130/360);
-var venus2XL = ((System.getDeviceSettings().screenWidth)*119/360);
-
+    var screenHeightY = System.getDeviceSettings().screenHeight;
+    var screenWidthX = System.getDeviceSettings().screenWidth;    
+    var venus2Y = ((screenHeightY)*130/360);
+    var venus2XL = ((screenWidthX)*119/360);
+    if (screenHeightY == 390){
+        venus2XL = ((screenWidthX)*124/360);
+        venus2Y = ((screenHeightY)*135/360);
+    }
   var moonArray= [
           (new WatchUi.Bitmap({
             :rezId=>Rez.Drawables.newmoon,//0
@@ -843,7 +855,7 @@ var venus2XL = ((System.getDeviceSettings().screenWidth)*119/360);
 
 }
 
-/*
+/* 
        Horoscope, Zodiac, and Weather Font:
         A FAR
         B capricorn

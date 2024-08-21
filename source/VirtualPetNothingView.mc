@@ -37,9 +37,13 @@ function onUpdate(dc as Dc) as Void {
         screenHeightY=screenHeightY*1.1;
         screenWidthX=screenWidthX *1.07;
     }
-        if (System.getDeviceSettings().screenHeight ==416){
+    if (System.getDeviceSettings().screenHeight ==416){
         screenHeightY=screenHeightY*1.15;
         screenWidthX=screenWidthX *1.17;
+    }
+    if (System.getDeviceSettings().screenHeight ==454){
+        screenHeightY=screenHeightY*1.25;
+        screenWidthX=screenWidthX *1.27;
     }
     var myStats = System.getSystemStats();
     var info = ActivityMonitor.getInfo();
@@ -333,6 +337,10 @@ function dogPhase(seconds, steps){
     if (screenHeightY == 416){
    venus2Y = (212*screenHeightY/360);
    venus2X = 120*screenWidthX/360;
+  }
+      if (screenHeightY == 454){
+   venus2Y = (220*screenHeightY/360);
+   venus2X = 130*screenWidthX/360;
   }
   var dogARRAY = [
     (new WatchUi.Bitmap({
@@ -833,6 +841,10 @@ function moonArrFun(moonnumber){
     if (screenHeightY == 416){
         venus2XL = ((screenWidthX)*125/360);
         venus2Y = ((screenHeightY)*129/360);
+    }
+        if (screenHeightY == 454){
+        venus2XL = ((screenWidthX)*132/360);
+        venus2Y = ((screenHeightY)*130/360);
     }
   var moonArray= [
           (new WatchUi.Bitmap({

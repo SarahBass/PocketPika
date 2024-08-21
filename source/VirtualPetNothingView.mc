@@ -212,7 +212,7 @@ function onUpdate(dc as Dc) as Void {
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
-    var dog = dogPhase(today.sec,userSTEPS); //userSTEPS or (today.sec*180)
+    var dog = dogPhase(today.sec,20000); //userSTEPS or (today.sec*180)
     dog.draw(dc);
     //Draw Time infront of Pika
     //dc.drawText(centerX+3,200,smallFont, timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
@@ -563,26 +563,29 @@ function dogPhase(seconds, steps){
         })),
             (new WatchUi.Bitmap({
             :rezId=>Rez.Drawables.dog56,
-            :locX=> venus2X,
-            :locY=>venus2Y
+            :locX=> (venus2X-4),
+            :locY=>(venus2Y+10)
         })),
             (new WatchUi.Bitmap({
             :rezId=>Rez.Drawables.dog57,
-            :locX=> venus2X,
-            :locY=>venus2Y
+            :locX=> (venus2X-4),
+            :locY=>(venus2Y+10)
         })),
             (new WatchUi.Bitmap({
             :rezId=>Rez.Drawables.dog58,
-            :locX=> venus2X,
-            :locY=>venus2Y
+            :locX=> (venus2X-4),
+            :locY=>(venus2Y+10)
         })),
             (new WatchUi.Bitmap({
             :rezId=>Rez.Drawables.dog59,
-            :locX=> venus2X,
-            :locY=>venus2Y
+            :locX=> (venus2X-4),
+            :locY=>(venus2Y+10)
         })),
         ];
-       if (steps > 10000){return dogARRAY[54 + seconds%2];}else{return dogARRAY[((steps/360)*2) + seconds%2 ];}
+       if (steps > 10000 && steps < 12000){return dogARRAY[54 + seconds%2];}
+       else if (steps >= 12000 && steps < 20000){return dogARRAY[56 + seconds%2];}
+       else if (steps >= 20000){return dogARRAY[58 + seconds%2];}
+       else{return dogARRAY[((steps/360)*2) + seconds%2 ];}
         
         
   

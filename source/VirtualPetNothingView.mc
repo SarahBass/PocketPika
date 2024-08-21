@@ -58,12 +58,25 @@ function onUpdate(dc as Dc) as Void {
     if (profile != null && profile.birthYear != null) {
         userBIRTH = profile.birthYear.toNumber();
     }
-
     // Array representing the Chinese horoscope symbols
     var chinesehoroscope = ["r", "q", "j", "s", "h", "K", "k", "m", "d", "o", "p", "L"] as Array<String>;
     // Current year
     var currentYear = today.year.toNumber();
+    //Get Gender
+    var gender = "k"; // Default value if gender is unspecified or null
+    //
+    if (profile != null && profile.gender != null) {
+        if (profile.gender == UserProfile.GENDER_FEMALE) {
+            gender = "u";
+        } else if (profile.gender == UserProfile.GENDER_MALE) {
+            gender = "t";
+        } else if (profile.gender == UserProfile.GENDER_UNSPECIFIED) {
+            gender = "k"; // You could keep this as "k" for unspecified, or choose a different value if desired
+        }else {gender = "k";}
+        }else {gender = "k";}
 
+        
+    
 
     /*----------Battery------------------------------*/
     var userBattery = "0";
@@ -217,13 +230,14 @@ function onUpdate(dc as Dc) as Void {
     dc.drawText( 303,165 , wordFont,  ("SUNSET"), Graphics.TEXT_JUSTIFY_CENTER);
     dc.drawText( 303,180, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX,175,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText(centerX+3,200,smallFont, timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(centerX+3,200,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Draw Month Horoscope
     dc.drawText(75,226,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Drawing the Chinese horoscope based on the current year
     dc.drawText(107, 256, smallFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
     // Drawing the Chinese horoscope based on the user's birth year
-    dc.drawText(278, 256, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText(268, 256, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText(289,226,smallFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
@@ -645,80 +659,82 @@ private function getHeartRate() {
 */
 
 function getHoroscope(month, day) {
-
-     if (month == 0) {
-        if (day > 0 && day < 19) {
-          return "B";//"Cap";
+    if (month == 0) { // January
+        if (day <= 19) {
+            return "B"; // Capricorn
         } else {
-          return "v";//"Aqu";
+            return "v"; // Aquarius
         }
-      } else if (month == 1) {
-        if (day > 1 && day < 18) {
-          return "B";//"Cap";
+    } else if (month == 1) { // February
+        if (day <= 18) {
+            return "v"; // Aquarius
         } else {
-          return "@";//"Pis";
+            return "@"; // Pisces
         }
-      } else if (month == 2) {
-        if (day > 1 && day < 20) {
-          return "@";//"Pis";
+    } else if (month == 2) { // March
+        if (day <= 20) {
+            return "@"; // Pisces
         } else {
-          return "w";//"Ari";
+            return "w"; // Aries
         }
-      } else if (month == 3) {
-        if (day > 1 && day < 19) {
-          return "w";//"Ari";
+    } else if (month == 3) { // April
+        if (day <= 19) {
+            return "w"; // Aries
         } else {
-          return "F";//"Tau";
+            return "F"; // Taurus
         }
-      } else if (month == 4) {
-        return "F";//"Tau";
-      } else if (month == 5) {
-        if (day > 1 && day < 20) {
-          return "x";//"Gem";
+    } else if (month == 4) { // May
+        if (day <= 20) {
+            return "F"; // Taurus
         } else {
-          return "C";//"Can";
+            return "x"; // Gemini
         }
-      } else if (month == 6) {
-        if (day > 1 && day < 22) {
-          return "C";//"Can";
+    } else if (month == 5) { // June
+        if (day <= 20) {
+            return "x"; // Gemini
         } else {
-          return "y";//"Leo";
+            return "C"; // Cancer
         }
-      } else if (month == 7) {
-        if (day > 1 && day < 22) {
-          return "y";//"Leo";
+    } else if (month == 6) { // July
+        if (day <= 22) {
+            return "C"; // Cancer
         } else {
-          return "H";//"Vir";
+            return "y"; // Leo
         }
-      } else if (month == 8) {
-        if (day > 1 && day < 22) {
-          return "H";//"Vir";
+    } else if (month == 7) { // August
+        if (day <= 22) {
+            return "y"; // Leo
         } else {
-          return "z";//"Lib";
+            return "H"; // Virgo
         }
-      } else if (month == 9) {
-        if (day > 1 && day < 22) {
-          return "z";//"Lib";
+    } else if (month == 8) { // September
+        if (day <= 22) {
+            return "H"; // Virgo
         } else {
-          return "G";//"Sco";
+            return "z"; // Libra
         }
-      } else if (month == 10) {
-        if (day > 1 && day < 21) {
-          return "G";//"Sco";
+    } else if (month == 9) { // October
+        if (day <= 22) {
+            return "z"; // Libra
         } else {
-          return "E";//"Sag";
+            return "G"; // Scorpio
         }
-      } else if (month == 11) {
-        if (day > 1 && day < 21) {
-          return "E";//"Sag";
+    } else if (month == 10) { // November
+        if (day <= 21) {
+            return "G"; // Scorpio
         } else {
-          return "B";//"Cap";
+            return "E"; // Sagittarius
         }
-      } else {
-        return "w";//"Ari";
-      }
+    } else if (month == 11) { // December
+        if (day <= 21) {
+            return "E"; // Sagittarius
+        } else {
+            return "B"; // Capricorn
+        }
+    } else {
+        return "w"; // Default to Aries if month is invalid
     }
-
+}
            
 
 

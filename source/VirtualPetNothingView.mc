@@ -28,9 +28,18 @@ function onUpdate(dc as Dc) as Void {
     var mySettings = System.getDeviceSettings();
     var screenHeightY = (System.getDeviceSettings().screenHeight)/360;
     var screenWidthX = (System.getDeviceSettings().screenWidth)/360;
+    //Size Variations Pixel Circle
+    //360 VenuS2 - The Model I designed it for 
+    //390 Size up
+    //416 Size up
+    //454 Size up
     if (System.getDeviceSettings().screenHeight ==390){
         screenHeightY=screenHeightY*1.1;
         screenWidthX=screenWidthX *1.07;
+    }
+        if (System.getDeviceSettings().screenHeight ==416){
+        screenHeightY=screenHeightY*1.15;
+        screenWidthX=screenWidthX *1.17;
     }
     var myStats = System.getSystemStats();
     var info = ActivityMonitor.getInfo();
@@ -313,8 +322,17 @@ function dogPhase(seconds, steps){
   var screenWidthX = System.getDeviceSettings().screenWidth;
   var venus2X = 110*screenWidthX/360;
   var venus2Y = (190*screenHeightY/360);
+    //Size Variations Pixel Circle
+    //360 VenuS2 - The Model I designed it for 
+    //390 Size up
+    //416 Size up
+    //454 Size up
   if (screenHeightY == 390){
    venus2Y = (200*screenHeightY/360);
+  }
+    if (screenHeightY == 416){
+   venus2Y = (212*screenHeightY/360);
+   venus2X = 120*screenWidthX/360;
   }
   var dogARRAY = [
     (new WatchUi.Bitmap({
@@ -803,9 +821,18 @@ function moonArrFun(moonnumber){
     var screenWidthX = System.getDeviceSettings().screenWidth;    
     var venus2Y = ((screenHeightY)*130/360);
     var venus2XL = ((screenWidthX)*119/360);
+    //Size Variations Pixel Circle
+    //360 VenuS2 - The Model I designed it for 
+    //390 Size up
+    //416 Size up
+    //454 Size up
     if (screenHeightY == 390){
         venus2XL = ((screenWidthX)*124/360);
         venus2Y = ((screenHeightY)*135/360);
+    }
+    if (screenHeightY == 416){
+        venus2XL = ((screenWidthX)*125/360);
+        venus2Y = ((screenHeightY)*129/360);
     }
   var moonArray= [
           (new WatchUi.Bitmap({

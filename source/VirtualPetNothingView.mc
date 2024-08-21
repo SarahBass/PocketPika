@@ -232,12 +232,12 @@ function onUpdate(dc as Dc) as Void {
     dc.drawText(centerX,175,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX+3,200,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Draw Month Horoscope
-    dc.drawText(75,226,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(72,220,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Drawing the Chinese horoscope based on the current year
     dc.drawText(107, 256, smallFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
     // Drawing the Chinese horoscope based on the user's birth year
     dc.drawText(268, 256, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
-    dc.drawText(289,226,smallFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(287,220,smallFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);

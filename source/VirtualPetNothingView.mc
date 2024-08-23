@@ -75,12 +75,24 @@ function onUpdate(dc as Dc) as Void {
     if (profile != null && profile.birthYear != null) {
         userBIRTH = profile.birthYear.toNumber();
     }
-    // Array representing the Chinese horoscope symbols
+    /* Array representing the Chinese horoscope symbols
+    r: Monkey
+    q: Rooster
+    j: Dog
+    s: Pig
+    h: Rat
+    K: Bull
+    k: Tiger
+    m: Rabbit
+    d: Dragon
+    o: Snake
+    p: Horse
+    L: Sheep*/
     var chinesehoroscope = ["r", "q", "j", "s", "h", "K", "k", "m", "d", "o", "p", "L"] as Array<String>;
     // Current year
     var currentYear = today.year.toNumber();
     //Get Gender
-    var gender = "k"; // Default value if gender is unspecified or null
+    var gender = "y"; // Default value if gender is unspecified or null
     //
     if (profile != null && profile.gender != null) {
         if (profile.gender == UserProfile.GENDER_FEMALE) {
@@ -88,10 +100,10 @@ function onUpdate(dc as Dc) as Void {
         } else if (profile.gender == UserProfile.GENDER_MALE) {
             gender = "t";
         } else if (profile.gender == UserProfile.GENDER_UNSPECIFIED) {
-            gender = "k"; // You could keep this as "k" for unspecified, or choose a different value if desired
-        }else {gender = "k";}
-        }else {gender = "k";}
-
+            gender = "y"; // You could keep this as "y" for unspecified, or choose a different value if desired
+        }else {gender = "y";}
+        }else {gender = "y";}
+        //u-female, t-male y-Robot
         
     
 
@@ -202,8 +214,6 @@ function onUpdate(dc as Dc) as Void {
     var moonnumber = getMoonPhase(today.year, ((today.month)-1), today.day);  
     var moon1 = moonArrFun(moonnumber);
     var centerX = (dc.getWidth()) / 2;
-    //var centerY = (dc.getHeight()) / 2;
-    var smallFont =  WatchUi.loadResource( Rez.Fonts.WeatherFont );
     var wordFont =  WatchUi.loadResource( Rez.Fonts.smallFont );
     var bigFont= WatchUi.loadResource( Rez.Fonts.bigFont );
     View.onUpdate(dc);
@@ -226,47 +236,55 @@ function onUpdate(dc as Dc) as Void {
     dc.setColor(0x7B8863, Graphics.COLOR_TRANSPARENT);       
     dc.fillCircle(centerX, centerX, centerX*1/2) ;        
    
-    /*--------Draw Text---------------------------*/
+    /*--------Draw User Data Text---------------------------*/
     dc.setColor(0x17231B, Graphics.COLOR_TRANSPARENT);  
     dc.drawText( centerX, 40*screenHeightY, wordFont,  ("+"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( centerX, 60*screenHeightY, wordFont,  (userHEART), Graphics.TEXT_JUSTIFY_CENTER );
-
     dc.drawText( 100 *screenWidthX,70*screenHeightY , wordFont,  ("^"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 100 *screenWidthX,89*screenHeightY , wordFont,  (userSTEPS), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 260 *screenWidthX,70*screenHeightY , wordFont,  ("~"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 260 *screenWidthX,89*screenHeightY , wordFont,  (userCAL), Graphics.TEXT_JUSTIFY_CENTER );
+    
+/* Draw Weather and Temperature Text
+baegifc Checks Weather Strings 
+a: rain
+e: cloud
+g: wind
+i: snow
+f: whirlwind
+c: suncloudrain*/
     dc.drawText( centerX,125*screenHeightY, wordFont, (TEMP+" " +FC), Graphics.TEXT_JUSTIFY_CENTER );
-    dc.drawText( centerX,90*screenHeightY, smallFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( centerX,90*screenHeightY, bigFont, weather(cond), Graphics.TEXT_JUSTIFY_CENTER );
     
     //Sunrise
-    dc.drawText( 58 *screenWidthX,130*screenHeightY, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 58 *screenWidthX,130*screenHeightY, bigFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 58 *screenWidthX,165*screenHeightY , wordFont,  ("SUNRISE"), Graphics.TEXT_JUSTIFY_CENTER);
     dc.drawText( 58 *screenWidthX,180*screenHeightY, wordFont,(sunriseHour + ":" + sunriseMin+ "AM"), Graphics.TEXT_JUSTIFY_CENTER );
     //Sunset
-    dc.drawText( 303 *screenWidthX,130*screenHeightY, smallFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
+    dc.drawText( 303 *screenWidthX,130*screenHeightY, bigFont,"l", Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText( 303 *screenWidthX,165*screenHeightY , wordFont,  ("SUNSET"), Graphics.TEXT_JUSTIFY_CENTER);
     dc.drawText( 303 *screenWidthX,180*screenHeightY, wordFont,(sunsetHour + ":" + sunsetMin+ "PM"), Graphics.TEXT_JUSTIFY_CENTER );
     dc.drawText(centerX,175*screenHeightY,wordFont,(weekdayArray[today.day_of_week]+" , "+ monthArray[today.month]+" "+ today.day +" " +today.year), Graphics.TEXT_JUSTIFY_CENTER );
     
-    if (System.getDeviceSettings().screenHeight ==416 || System.getDeviceSettings().screenHeight ==454){
-        dc.drawText(centerX+3,180*screenHeightY,bigFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
-    }else{
-        dc.drawText(centerX+3,200*screenHeightY,smallFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
-    }
+    //Time Text
+    dc.drawText(centerX,172*screenHeightY,bigFont,timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+   
+    //Bv@wFxCyHzGEIJ B-Capricorn v-Aquarius @-Pisces w-Aries F-Taurus x-Gemini C-Cancer y-r2d2 H- z-DarthVader G-Scorpio E-Sagitarius I-Libra J-Leo
     // Draw Month Horoscope
-    dc.drawText(72 *screenWidthX,220*screenHeightY,smallFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(72 *screenWidthX,220*screenHeightY,bigFont, getHoroscope(today.month, today.day),  Graphics.TEXT_JUSTIFY_CENTER  ); 
     // Drawing the Chinese horoscope based on the current year
-    dc.drawText(107 *screenWidthX, 256*screenHeightY, smallFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    //rqjshKkmdopL
+    //Monkey, rooster, dog, pig, rat, bull, tiger, rabit, dragon, snake, horse, sheep
+    dc.drawText(107 *screenWidthX, 256*screenHeightY, bigFont, chinesehoroscope[(currentYear % 12)], Graphics.TEXT_JUSTIFY_CENTER);
     // Drawing the Chinese horoscope based on the user's birth year
-    dc.drawText(268 *screenWidthX, 256*screenHeightY, smallFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
-    dc.drawText(287 *screenWidthX,220*screenHeightY,smallFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    dc.drawText(268 *screenWidthX, 256*screenHeightY, bigFont, chinesehoroscope[(userBIRTH % 12)], Graphics.TEXT_JUSTIFY_CENTER);
+    dc.drawText(287 *screenWidthX,220*screenHeightY,bigFont, gender,  Graphics.TEXT_JUSTIFY_CENTER  ); 
 
     /*----Draw Graphics----------*/
     moon1.draw(dc);
     var dog = dogPhase(today.sec,userSTEPS); //userSTEPS or (today.sec*180)
     dog.draw(dc);
-    //Draw Time infront of Pika
-    //dc.drawText(centerX+3,200,smallFont, timeString,  Graphics.TEXT_JUSTIFY_CENTER  ); 
+    
     /*------------Draw Step Meter------------*/
     //Every 360 Steps Pikachu Levels up
     dc.setPenWidth(16);
@@ -737,11 +755,11 @@ function getHoroscope(month, day) {
         if (day <= 22) {
             return "C"; // Cancer
         } else {
-            return "y"; // Leo
+            return "J"; // Leo
         }
     } else if (month == 7) { // August
         if (day <= 22) {
-            return "y"; // Leo
+            return "J"; // Leo
         } else {
             return "H"; // Virgo
         }
@@ -749,11 +767,11 @@ function getHoroscope(month, day) {
         if (day <= 22) {
             return "H"; // Virgo
         } else {
-            return "z"; // Libra
+            return "I"; // Libra
         }
     } else if (month == 9) { // October
         if (day <= 22) {
-            return "z"; // Libra
+            return "I"; // Libra
         } else {
             return "G"; // Scorpio
         }
